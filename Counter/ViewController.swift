@@ -7,18 +7,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
+    @IBOutlet private weak var counterLabel: UILabel!
     
-    @IBOutlet weak var counterLabel: UILabel!
+    @IBOutlet private weak var plusButton: UIButton!
     
-    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet private weak var minusButton: UIButton!
     
-    @IBOutlet weak var minusButton: UIButton!
+    @IBOutlet private weak var resetButton: UIButton!
     
-    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet private weak var historyTextView: UITextView!
     
-    @IBOutlet weak var historyTextView: UITextView!
+    private var counter: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,25 +32,23 @@ class ViewController: UIViewController {
         historyTextView.text = "История изменений:\n".uppercased()
     }
     
-    private var counter: Int = 0
+    
     
     private func dateTime()->String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-//        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         let date = dateFormatter.string(from: Date())
         return date
     }
     
-    @IBAction func plusDidTouched(_ sender: Any) {
+    @IBAction private func plusDidTouched(_ sender: Any) {
         
         counter += 1
         counterLabel.text = "Значение счетчика: \(counter)"
         historyTextView.text += "\(dateTime()): значение изменено на +1\n"
-        
     }
     
-    @IBAction func minusDidTouched(_ sender: Any) {
+    @IBAction private func minusDidTouched(_ sender: Any) {
         
         if counter > 0 {
             counter -= 1
@@ -61,12 +60,11 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func resetDidTouched(_ sender: Any) {
+    @IBAction private func resetDidTouched(_ sender: Any) {
         
         counter = 0
         counterLabel.text = "Значение счетчика: \(counter)"
         historyTextView.text += "\(dateTime()): значение cброшено\n"
     }
-    
 }
 
